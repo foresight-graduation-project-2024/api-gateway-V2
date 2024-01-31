@@ -5,6 +5,12 @@ spring:
     name: api_gateway
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: users-service
           uri: lb://user-mngmnt
@@ -12,6 +18,14 @@ spring:
             - Path=/users/**,/login/**
           filters:
             - AuthenticationFilter
+        - id: react-native
+          uri: http://localhost:8081/
+          predicates:
+             - Path=/**
+        - id: react
+          uri: http://localhost:3000/
+          predicates:
+            - Path=/**
 
 
 
