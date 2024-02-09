@@ -19,6 +19,13 @@ spring:
           filters:
             - AuthenticationFilter
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - id: task-maintenance-service
+          uri: lb://maintenance-tasks
+          predicates:
+            - Path=/notification/**,/task/**,/team/**,/user/**
+          filters:
+            - AuthenticationFilter
+#            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
 #        - id: react-native
 #          uri: http://localhost:8081/
 #          predicates:
